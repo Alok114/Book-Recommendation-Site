@@ -5,14 +5,68 @@
 
 #root {
   width: 100vw;
-  height: 100vh;
-  background: radial-gradient(#5a47ce, #232323 80%);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(#8B4513, #1A0F00 80%);  /* Warm brown gradient for a book-themed background */
+  background-attachment: fixed; /* Keep the gradient fixed while scrolling */
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  background: radial-gradient(#8B4513, #1A0F00 80%);  /* Same gradient on html element */
+  background-attachment: fixed;
 }
 
 .outline-text {
-  -webkit-text-stroke: 1px white;
+  -webkit-text-stroke: 1px rgb(255, 255, 255);
+}
+
+/* Bounce animation for scroll indicator */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* Horizontal scroll animations */
+@keyframes horizontal-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes horizontal-scroll-2 {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+
+.animate-horizontal-scroll {
+  animation: horizontal-scroll 20s linear infinite;
+}
+
+.animate-horizontal-scroll-2 {
+  animation: horizontal-scroll-2 20s linear infinite;
 }

@@ -1,0 +1,59 @@
+.cursor-ring {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.15s ease-out;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.08s ease-out;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring-clicked {
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
+  border-color: rgba(255, 215, 0, 0.8);
+}
+
+.cursor-dot-clicked {
+  width: 5px;
+  height: 5px;
+  background-color: rgba(255, 215, 0, 0.8);
+}
+
+.cursor-hidden {
+  opacity: 0;
+}
+
+.cursor-ring-link-hovered {
+  width: 40px;
+  height: 40px;
+  border-color: rgba(255, 215, 0, 0.5);
+  background-color: rgba(255, 215, 0, 0.1);
+}
+
+/* Make sure all interactive elements have proper hover states */
+a, button, [role="button"], [class*="cursor-pointer"] {
+  cursor: none !important;
+}
+
+/* Hide cursor on entire document */
+html, body {
+  cursor: none !important;
+}

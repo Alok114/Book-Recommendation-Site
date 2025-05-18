@@ -2,7 +2,7 @@ import { useCursor, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useAtom } from "jotai";
 import { easing } from "maath";
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Bone,
   BoxGeometry,
@@ -86,17 +86,37 @@ const pageMaterials = [
 ];
 
 pages.forEach((page) => {
-  useTexture.preload(`/textures/${page.front}.jpg`);
-  useTexture.preload(`/textures/${page.back}.jpg`);
-  useTexture.preload(`/textures/book-cover-roughness.jpg`);
+  // Try to preload both jpg and png versions
+  try {
+    useTexture.preload(`/textures/${page.front}.jpg`);
+  } catch (e) {
+    useTexture.preload(`/textures/${page.front}.png`);
+  }
+  
+  try {
+    useTexture.preload(`/textures/${page.back}.jpg`);
+  } catch (e) {
+    useTexture.preload(`/textures/${page.back}.png`);
+  }
+  
+  try {
+    useTexture.preload(`/textures/book-cover-roughness.jpg`);
+  } catch (e) {
+    useTexture.preload(`/textures/book-cover-roughness.png`);
+  }
 });
 
 const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
+  // Determine file extensions based on what's available
+  const frontExt = front === "book-cover" ? "png" : "jpg";
+  const backExt = back === "book-cover" ? "png" : "jpg";
+  const roughnessExt = "png"; // Since book-cover-roughness is now png
+  
   const [picture, picture2, pictureRoughness] = useTexture([
-    `/textures/${front}.jpg`,
-    `/textures/${back}.jpg`,
+    `/textures/${front}.${frontExt}`,
+    `/textures/${back}.${backExt}`,
     ...(number === 0 || number === pages.length - 1
-      ? [`/textures/book-cover-roughness.jpg`]
+      ? [`/textures/book-cover-roughness.${roughnessExt}`]
       : []),
   ]);
   picture.colorSpace = picture2.colorSpace = SRGBColorSpace;
@@ -262,7 +282,7 @@ const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
   );
 };
 
-export const Book = ({ ...props }) => {
+export const Book = React.forwardRef(({ ...props }, ref) => {
   const [page] = useAtom(pageAtom);
   const [delayedPage, setDelayedPage] = useState(page);
 
@@ -295,7 +315,7 @@ export const Book = ({ ...props }) => {
   }, [page]);
 
   return (
-    <group {...props} rotation-y={-Math.PI / 2}>
+    <group {...props} ref={ref} rotation-y={-Math.PI / 2}>
       {[...pages].map((pageData, index) => (
         <Page
           key={index}
@@ -308,4 +328,4 @@ export const Book = ({ ...props }) => {
       ))}
     </group>
   );
-};
+});

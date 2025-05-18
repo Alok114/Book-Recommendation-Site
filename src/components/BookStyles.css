@@ -1,0 +1,132 @@
+/* Book styling for recommendations */
+.book-container {
+  position: relative;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.book-container:hover {
+  transform: translateY(-5px);
+  z-index: 10;
+}
+
+/* Remove default focus/active styles that might cause the black shadow */
+.book-container:focus,
+.book-container:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.book {
+  position: relative;
+  transition: transform 0.2s;
+}
+
+/* Book cover */
+.book-cover {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+}
+
+.book-container:hover .book-cover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Active state for when the book is clicked */
+.book-container:active .book-cover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Selected book state - very subtle */
+.selected-book .book-cover {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove any outline or shadow on focus */
+.book-container:focus {
+  outline: none !important;
+}
+
+.book-container:focus .book-cover {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove the 3D book spine and pages effects */
+
+/* Book info */
+.book-info {
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0 0 4px 4px;
+  transition: all 0.2s ease;
+}
+
+.book-title {
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book-author {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Simplified bookshelf styling */
+.bookshelf {
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.bookshelf::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Favorite button styling */
+.favorite-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  transition: all 0.2s ease;
+  transform-origin: center;
+}
+
+.favorite-button:hover {
+  transform: scale(1.15);
+}
+
+.favorite-button:active {
+  transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .book-spine {
+    width: 6px;
+    transform: translateX(-6px) rotateY(-90deg);
+  }
+  
+  .book-pages {
+    width: 3px;
+    transform: translateX(-3px) rotateY(-90deg);
+  }
+}
