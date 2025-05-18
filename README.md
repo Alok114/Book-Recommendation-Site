@@ -1,5 +1,7 @@
 # YourBook - 3D Interactive Book Recommendation App
 
+**Live Demo:** [https://book-recommendation-site.vercel.app/](https://book-recommendation-site.vercel.app/)
+
 An interactive 3D book visualization with AI-powered book recommendations.
 
 ## Features
