@@ -5,25 +5,31 @@
 
 #root {
   width: 100vw;
+  min-width: 320px; /* Minimum width to prevent content squishing */
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  min-width: 320px; /* Minimum width to prevent content squishing */
   font-family: 'Poppins', sans-serif;
   background: radial-gradient(#8B4513, #1A0F00 80%);  /* Warm brown gradient for a book-themed background */
   background-attachment: fixed; /* Keep the gradient fixed while scrolling */
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
   height: 100%;
+  min-width: 320px; /* Minimum width to prevent content squishing */
   background: radial-gradient(#8B4513, #1A0F00 80%);  /* Same gradient on html element */
   background-attachment: fixed;
+  box-sizing: border-box;
 }
 
 .outline-text {

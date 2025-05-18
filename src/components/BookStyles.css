@@ -3,11 +3,17 @@
   position: relative;
   transition: all 0.2s ease;
   outline: none;
+  min-width: 120px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 2px;
 }
 
 .book-container:hover {
   transform: translateY(-5px);
   z-index: 10;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Remove default focus/active styles that might cause the black shadow */
@@ -20,6 +26,8 @@
 .book {
   position: relative;
   transition: transform 0.2s;
+  min-width: 100px;
+  box-sizing: border-box;
 }
 
 /* Book cover */
@@ -30,10 +38,13 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-height: 100px;
 }
 
 .book-container:hover .book-cover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Active state for when the book is clicked */
@@ -44,6 +55,7 @@
 /* Selected book state - very subtle */
 .selected-book .book-cover {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Remove any outline or shadow on focus */
@@ -53,6 +65,7 @@
 
 .book-container:focus .book-cover {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Remove the 3D book spine and pages effects */
@@ -60,9 +73,12 @@
 /* Book info */
 .book-info {
   padding: 0.75rem;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 0 0 4px 4px;
   transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: none;
+  min-height: 50px;
 }
 
 .book-title {
@@ -73,6 +89,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .book-author {
@@ -81,6 +98,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 /* Simplified bookshelf styling */
@@ -120,13 +138,126 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .book-spine {
-    width: 6px;
-    transform: translateX(-6px) rotateY(-90deg);
+  .book-container {
+    min-width: 120px;
+    max-width: 150px;
+    border-width: 1px;
+    margin: 0 auto;
   }
   
-  .book-pages {
-    width: 3px;
-    transform: translateX(-3px) rotateY(-90deg);
+  .book {
+    min-width: 110px;
+    max-width: 140px;
+  }
+  
+  .book-cover {
+    border-width: 1px;
+  }
+  
+  .book-info {
+    border-width: 1px;
+    min-height: 50px;
+    padding: 0.5rem;
+  }
+  
+  .book-title {
+    font-size: 0.8rem;
+  }
+  
+  .book-author {
+    font-size: 0.7rem;
+  }
+  
+  .favorite-button {
+    top: 4px;
+    right: 4px;
+    transform: scale(0.9);
+  }
+  
+  .bookshelf {
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Additional styles for very small screens or zoomed out view */
+@media (max-width: 480px) {
+  .book-container {
+    min-width: 100px;
+    max-width: 130px;
+    border-width: 1px;
+    padding: 1px;
+    transform: none !important; /* Disable hover animation on mobile */
+  }
+  
+  .book {
+    min-width: 95px;
+    max-width: 125px;
+  }
+  
+  .book-cover {
+    border-width: 1px;
+  }
+  
+  .book-info {
+    padding: 0.4rem;
+    min-height: 40px;
+  }
+  
+  .book-title {
+    font-size: 0.7rem;
+    margin-bottom: 0.1rem;
+  }
+  
+  .book-author {
+    font-size: 0.6rem;
+  }
+  
+  .favorite-button {
+    top: 3px;
+    right: 3px;
+    transform: scale(0.8);
+    padding: 1px !important;
+  }
+  
+  .favorite-button svg {
+    width: 3.5px;
+    height: 3.5px;
+  }
+  
+  .bookshelf {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .bookshelf::after {
+    left: 5%;
+    right: 5%;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .book-container {
+    min-width: 80px;
+    max-width: 110px;
+  }
+  
+  .book {
+    min-width: 75px;
+    max-width: 105px;
+  }
+  
+  .book-info {
+    padding: 0.3rem;
+    min-height: 35px;
+  }
+  
+  .book-title {
+    font-size: 0.65rem;
+  }
+  
+  .book-author {
+    font-size: 0.55rem;
   }
 }

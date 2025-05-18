@@ -208,14 +208,16 @@ export const BookSearch = ({ scrollY = 0 }) => {
         visibility: containerOpacity > 0.2 ? 'visible' : 'hidden',
         pointerEvents: containerOpacity > 0.2 ? 'auto' : 'none',
         transform: `translateY(${containerOpacity < 0.5 ? '20px' : '0'})`,
-        zIndex: 50
+        zIndex: 50,
+        minWidth: '320px',
+        boxSizing: 'border-box'
       }}
     >
-      <div className="w-full max-w-4xl mx-auto px-6 py-8 max-h-[90vh] overflow-hidden" style={{ zIndex: 50 }}>
-        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-2xl border border-white/20 max-h-full overflow-hidden" style={{ zIndex: 50 }}>
-          <h2 className="text-3xl font-bold text-white mb-6 text-center">
+      <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8 max-h-[92vh] overflow-hidden" style={{ zIndex: 50, minWidth: '300px' }}>
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-4 md:p-6 shadow-2xl border border-white/20 max-h-full overflow-hidden" style={{ zIndex: 50, minWidth: '280px', outline: '1px solid rgba(255, 255, 255, 0.3)' }}>
+          <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6 text-center">
             Find Your Next Book
-            <span className="block text-sm font-normal text-white/70 mt-2">
+            <span className="block text-xs sm:text-sm font-normal text-white/70 mt-1 sm:mt-2">
               Enter a book title to get AI-powered recommendations or search by genre
             </span>
             {!import.meta.env.VITE_OPENROUTER_API_KEY && (
@@ -225,13 +227,13 @@ export const BookSearch = ({ scrollY = 0 }) => {
             )}
           </h2>
           
-          <form onSubmit={handleSearch} className="mb-8">
-            <div className="flex flex-col md:flex-row gap-4 mb-4">
+          <form onSubmit={handleSearch} className="mb-4 sm:mb-6 md:mb-8">
+            <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-3 sm:mb-4">
               <div className="flex-1">
                 <input
                   type="text"
-                  placeholder="Optional: Enter a book title or keywords, or just select categories below"
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 disabled:opacity-60"
+                  placeholder="Enter book title or keywords (optional)"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base rounded-lg bg-white/10 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 disabled:opacity-60"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   style={{ zIndex: 60 }}
@@ -241,33 +243,35 @@ export const BookSearch = ({ scrollY = 0 }) => {
               <button
                 type="submit"
                 disabled={loading || showFavorites}
-                className="px-6 py-3 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors duration-300 disabled:opacity-50"
+                className="px-4 py-2 sm:px-6 sm:py-3 bg-white/20 hover:bg-white/30 text-white text-sm sm:text-base rounded-lg transition-colors duration-300 disabled:opacity-50"
                 style={{ zIndex: 60 }}
               >
                 {loading ? (
-                  <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Finding books...
+                    <span className="hidden sm:inline">Finding books...</span>
+                    <span className="sm:hidden">Searching...</span>
                   </span>
                 ) : (
-                  <span className="flex items-center">
-                    <svg className="mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <span className="flex items-center justify-center">
+                    <svg className="mr-1 h-3 w-3 sm:h-4 sm:w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    Get Recommendations
+                    <span className="hidden sm:inline">Get Recommendations</span>
+                    <span className="sm:hidden">Search</span>
                   </span>
                 )}
               </button>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
               <div>
-                <label className="block text-white/80 mb-2 text-sm">Genre</label>
+                <label className="block text-white/80 mb-1 sm:mb-2 text-xs sm:text-sm">Genre</label>
                 <select
-                  className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className="w-full px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-1 focus:ring-white/50"
                   value={selectedGenre}
                   onChange={(e) => setSelectedGenre(e.target.value)}
                   style={{ zIndex: 60 }}
@@ -281,9 +285,9 @@ export const BookSearch = ({ scrollY = 0 }) => {
                 </select>
               </div>
               <div>
-                <label className="block text-white/80 mb-2 text-sm">Book Length</label>
+                <label className="block text-white/80 mb-1 sm:mb-2 text-xs sm:text-sm">Book Length</label>
                 <select
-                  className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className="w-full px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-1 focus:ring-white/50"
                   value={selectedLength}
                   onChange={(e) => setSelectedLength(e.target.value)}
                   style={{ zIndex: 60 }}
@@ -297,29 +301,30 @@ export const BookSearch = ({ scrollY = 0 }) => {
                 </select>
               </div>
               <div>
-                <label className="block text-white/80 mb-2 text-sm">View Mode</label>
+                <label className="block text-white/80 mb-1 sm:mb-2 text-xs sm:text-sm">View Mode</label>
                 <div className="flex bg-white/10 rounded-lg p-1 border border-white/30">
                   <button
                     type="button"
-                    className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+                    className={`flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                       !showFavorites 
                         ? 'bg-white/20 text-white' 
                         : 'text-white/70 hover:text-white hover:bg-white/10'
                     }`}
                     onClick={() => setShowFavorites(false)}
                   >
-                    Recommendations
+                    <span className="hidden xs:inline">Recommendations</span>
+                    <span className="xs:hidden">Books</span>
                   </button>
                   <button
                     type="button"
-                    className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+                    className={`flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                       showFavorites 
                         ? 'bg-white/20 text-white' 
                         : 'text-white/70 hover:text-white hover:bg-white/10'
                     }`}
                     onClick={() => setShowFavorites(true)}
                   >
-                    Favorites {favorites.length > 0 && `(${favorites.length})`}
+                    Favorites {favorites.length > 0 && <span className="inline-block ml-1 px-1.5 py-0.5 bg-white/20 rounded-full text-xs">{favorites.length}</span>}
                   </button>
                 </div>
               </div>
@@ -332,11 +337,11 @@ export const BookSearch = ({ scrollY = 0 }) => {
             </div>
           ) : showFavorites ? (
             <div className="mt-8">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold text-white">
+              <div className="flex justify-between items-center mb-2 sm:mb-3 md:mb-4">
+                <h3 className="text-xl sm:text-2xl font-bold text-white">
                   Favorite Books
                   {favorites.length === 0 && (
-                    <span className="block text-sm font-normal text-white/70 mt-2">
+                    <span className="block text-xs sm:text-sm font-normal text-white/70 mt-1 sm:mt-2">
                       You haven't added any favorites yet. Click the star icon on any book to add it to your favorites.
                     </span>
                   )}
@@ -345,9 +350,9 @@ export const BookSearch = ({ scrollY = 0 }) => {
                 {favorites.length > 0 && (
                   <button
                     onClick={clearAllFavorites}
-                    className="text-white/70 hover:text-white text-sm flex items-center px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                    className="text-white/70 hover:text-white text-xs sm:text-sm flex items-center px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
                   >
-                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                     </svg>
                     Clear All
@@ -356,9 +361,9 @@ export const BookSearch = ({ scrollY = 0 }) => {
               </div>
               {favorites.length > 0 && (
                 <div className="max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
-                  {/* Split favorites into rows of 4 (or 2 on mobile) */}
+                  {/* Split favorites into rows of 4 (or 3 on tablet, 2 on mobile) */}
                   {Array.from({ length: Math.ceil(favorites.length / 4) }).map((_, shelfIndex) => (
-                    <div key={shelfIndex} className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-6 bookshelf mb-8">
+                    <div key={shelfIndex} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 pb-6 bookshelf mb-8">
                       {favorites.slice(shelfIndex * 4, Math.min((shelfIndex + 1) * 4, favorites.length)).map((book, index) => (
                         <div 
                           key={index} 
@@ -415,12 +420,12 @@ export const BookSearch = ({ scrollY = 0 }) => {
               )}
             </div>
           ) : recommendations.length > 0 ? (
-            <div className="mt-8">
-              <h3 className="text-2xl font-bold text-white mb-4">Recommended Books</h3>
+            <div className="mt-4 sm:mt-6 md:mt-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3 md:mb-4">Recommended Books</h3>
               <div className="max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
-                {/* Split books into rows of 4 (or 2 on mobile) to create multiple bookshelves */}
+                {/* Split books into rows of 4 (or 3 on tablet, 2 on mobile) to create multiple bookshelves */}
                 {Array.from({ length: Math.ceil(displayCount / 4) }).map((_, shelfIndex) => (
-                  <div key={shelfIndex} className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-6 bookshelf mb-8">
+                  <div key={shelfIndex} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 pb-6 bookshelf mb-8">
                     {recommendations.slice(shelfIndex * 4, Math.min((shelfIndex + 1) * 4, displayCount)).map((book, index) => (
                     <div 
                       key={index} 
@@ -482,13 +487,13 @@ export const BookSearch = ({ scrollY = 0 }) => {
                 
                 {/* Show More button - only for recommendations, not for favorites */}
                 {!showFavorites && recommendations.length > displayCount && (
-                  <div className="text-center mt-8 mb-4">
+                  <div className="text-center mt-4 sm:mt-6 md:mt-8 mb-2 sm:mb-3 md:mb-4">
                     <button
                       onClick={() => setDisplayCount(prev => prev + 8)}
-                      className="px-6 py-2.5 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all duration-200"
+                      className="px-4 sm:px-6 py-2 sm:py-2.5 bg-white/20 hover:bg-white/30 text-white text-sm sm:text-base rounded-lg transition-all duration-200"
                     >
                       <span className="flex items-center justify-center">
-                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         More Books

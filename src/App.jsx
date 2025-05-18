@@ -21,10 +21,12 @@ function App() {
     
     // Make the body scrollable with enough height
     document.body.style.height = "300vh"; // 3x viewport height to allow scrolling
+    document.body.style.minWidth = "100vw"; // Ensure minimum width
     
     // Apply the gradient background to the entire document
     document.documentElement.style.background = "radial-gradient(#8B4513, #0A0A14 80%)";
     document.documentElement.style.backgroundAttachment = "fixed"; // Keep the gradient fixed while scrolling
+    document.documentElement.style.minWidth = "100vw"; // Ensure minimum width
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
