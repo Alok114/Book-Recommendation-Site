@@ -57,7 +57,3 @@ If no OpenRouter API key is provided, the app will fall back to mock recommendat
 - TailwindCSS
 - OpenRouter API
 - Google Books API
-
-## Credits
-
-Based on the 3D book visualization by [Wassim Samad](https://github.com/wass08/r3f-animated-book-slider-final)
