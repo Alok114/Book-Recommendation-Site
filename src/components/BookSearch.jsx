@@ -361,9 +361,9 @@ export const BookSearch = ({ scrollY = 0 }) => {
               </div>
               {favorites.length > 0 && (
                 <div className="max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
-                  {/* Split favorites into rows of 4 (or 3 on tablet, 2 on mobile) */}
+                  {/* Split favorites into rows of 4 (or 3 on tablet, 3 on mobile) */}
                   {Array.from({ length: Math.ceil(favorites.length / 4) }).map((_, shelfIndex) => (
-                    <div key={shelfIndex} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 pb-6 bookshelf mb-8">
+                    <div key={shelfIndex} className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 md:gap-6 pb-6 bookshelf mb-8">
                       {favorites.slice(shelfIndex * 4, Math.min((shelfIndex + 1) * 4, favorites.length)).map((book, index) => (
                         <div 
                           key={index} 
@@ -378,7 +378,7 @@ export const BookSearch = ({ scrollY = 0 }) => {
                         >
                           <div className="book">
                             {/* Book cover */}
-                            <div className="book-cover relative pb-[140%]">
+                            <div className="book-cover relative pb-[130%] sm:pb-[135%] md:pb-[140%]">
                               <img 
                                 src={book.image} 
                                 alt={book.title} 
@@ -423,9 +423,9 @@ export const BookSearch = ({ scrollY = 0 }) => {
             <div className="mt-4 sm:mt-6 md:mt-8">
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3 md:mb-4">Recommended Books</h3>
               <div className="max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
-                {/* Split books into rows of 4 (or 3 on tablet, 2 on mobile) to create multiple bookshelves */}
+                {/* Split books into rows of 4 (or 3 on tablet, 3 on mobile) to create multiple bookshelves */}
                 {Array.from({ length: Math.ceil(displayCount / 4) }).map((_, shelfIndex) => (
-                  <div key={shelfIndex} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 pb-6 bookshelf mb-8">
+                  <div key={shelfIndex} className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 md:gap-6 pb-6 bookshelf mb-8">
                     {recommendations.slice(shelfIndex * 4, Math.min((shelfIndex + 1) * 4, displayCount)).map((book, index) => (
                     <div 
                       key={index} 
@@ -440,7 +440,7 @@ export const BookSearch = ({ scrollY = 0 }) => {
                     >
                       <div className="book">
                         {/* Book cover */}
-                        <div className="book-cover relative pb-[140%]">
+                        <div className="book-cover relative pb-[130%] sm:pb-[135%] md:pb-[140%]">
                           <img 
                             src={book.image} 
                             alt={book.title} 
