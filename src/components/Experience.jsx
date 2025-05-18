@@ -1,6 +1,6 @@
 import { Environment, Float, OrbitControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Book } from "./Book";
 
 export const Experience = ({ scrollY = 0 }) => {
@@ -9,14 +9,29 @@ export const Experience = ({ scrollY = 0 }) => {
   const groupRef = useRef();
   const { viewport } = useThree();
 
+  // Check if we're on a mobile device
+  const isMobile = useRef(window.innerWidth <= 768);
+  
+  // Set initial scale based on device
+  useEffect(() => {
+    if (floatRef.current) {
+      // Start with a smaller scale on mobile
+      if (isMobile.current) {
+        floatRef.current.scale.x = floatRef.current.scale.y = floatRef.current.scale.z = 0.7;
+      }
+    }
+  }, []);
+  
   // Animate book based on scroll position
   useFrame((state, delta) => {
     if (floatRef.current && groupRef.current) {
       // Calculate scale based on scroll (book gets smaller as user scrolls down)
       const scrollProgress = Math.min(1, scrollY / (window.innerHeight * 0.7));
       
-      // Scale from 1 down to 0.4 as user scrolls
-      const targetScale = 1 - (scrollProgress * 0.6);
+      // Scale from 1 down to 0.4 as user scrolls (or from 0.7 to 0.3 on mobile)
+      const baseScale = isMobile.current ? 0.7 : 1;
+      const minScale = isMobile.current ? 0.3 : 0.4;
+      const targetScale = baseScale - (scrollProgress * (baseScale - minScale));
       
       // Apply scale with smooth easing
       floatRef.current.scale.x = floatRef.current.scale.y = floatRef.current.scale.z = 

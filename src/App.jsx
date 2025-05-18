@@ -67,12 +67,13 @@ function App() {
           left: 0, 
           width: "100%", 
           height: "100%",
-          pointerEvents: scrollY > window.innerHeight * 0.4 ? 'none' : 'auto'
+          pointerEvents: scrollY > window.innerHeight * 0.3 ? 'none' : 'auto', // Make it easier to scroll on mobile
+          maxHeight: window.innerWidth <= 768 ? '70vh' : '100%' // Limit height on mobile
         }}
       >
         <Canvas shadows camera={{
             position: [-0.5, 1, 3], // Centered position for the book
-            fov: 40,
+            fov: window.innerWidth <= 768 ? 50 : 40, // Wider FOV on mobile to see more
           }}>
           <group position-y={0}>
             <Suspense fallback={null}>

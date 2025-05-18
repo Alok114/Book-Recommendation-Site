@@ -99,8 +99,14 @@ export const BookSearch = ({ scrollY = 0 }) => {
     }
   }, []);
   
-  // Calculate opacity based on scroll position
-  const containerOpacity = Math.min(1, Math.max(0, (scrollY - window.innerHeight * 0.3) / (window.innerHeight * 0.2)));
+  // Check if we're on a mobile device
+  const isMobile = window.innerWidth <= 768;
+  
+  // Calculate opacity based on scroll position - appear earlier on mobile
+  const mobileThreshold = isMobile ? 0.15 : 0.3; // Start showing at 15% scroll on mobile vs 30% on desktop
+  const fadeSpeed = isMobile ? 0.15 : 0.2; // Fade in faster on mobile
+  
+  const containerOpacity = Math.min(1, Math.max(0, (scrollY - window.innerHeight * mobileThreshold) / (window.innerHeight * fadeSpeed)));
   
   // Toggle a book as favorite
   const toggleFavorite = (e, book) => {

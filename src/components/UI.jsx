@@ -47,11 +47,17 @@ export const UI = ({ scrollY = 0 }) => {
     audio.play();
   }, [page]);
 
-  // Calculate opacity for the scrolling text based on scroll position
-  const textOpacity = Math.max(0, 1 - (scrollY / (window.innerHeight * 0.5)));
+  // Check if we're on a mobile device
+  const isMobile = window.innerWidth <= 768;
   
-  // Calculate scroll indicator text
-  const scrollText = scrollY > window.innerHeight * 0.3 
+  // Calculate opacity for the scrolling text based on scroll position
+  // Fade out faster on mobile
+  const fadeThreshold = isMobile ? 0.3 : 0.5;
+  const textOpacity = Math.max(0, 1 - (scrollY / (window.innerHeight * fadeThreshold)));
+  
+  // Calculate scroll indicator text and threshold for mobile
+  const scrollThreshold = isMobile ? 0.15 : 0.3;
+  const scrollText = scrollY > window.innerHeight * scrollThreshold 
     ? "Scroll up to enlarge" 
     : "Scroll down to discover books";
 
@@ -59,23 +65,21 @@ export const UI = ({ scrollY = 0 }) => {
     <>
       <main className="pointer-events-none select-none z-10 fixed inset-0 flex justify-between flex-col">
         <a
-          className="pointer-events-auto mt-10 ml-10 cursor-pointer"
+          className="pointer-events-auto mt-4 sm:mt-6 md:mt-10 ml-4 sm:ml-6 md:ml-10 cursor-pointer"
           onClick={() => window.location.reload()}
           title="Reload page"
         >
-          <img className="w-20" src="/images/wawasensei-white.png" alt="YOUR BOOK" />
+          <img className="w-12 sm:w-16 md:w-20" src="/images/wawasensei-white.png" alt="YOUR BOOK" />
         </a>
-        
-
         
         {/* Scroll indicator */}
         <div 
-          className="flex flex-col items-center mb-10 transition-all duration-300"
+          className="flex flex-col items-center mb-4 sm:mb-6 md:mb-10 transition-all duration-300"
         >
-          <p className="text-white text-lg mb-2">{scrollText}</p>
+          <p className="text-white text-sm sm:text-base md:text-lg mb-1 sm:mb-2 px-2 text-center">{scrollText}</p>
           <svg 
-            className={`w-6 h-6 text-white transition-transform duration-300 ${
-              scrollY > window.innerHeight * 0.3 ? "rotate-180 animate-bounce" : "animate-bounce"
+            className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white transition-transform duration-300 ${
+              scrollY > window.innerHeight * scrollThreshold ? "rotate-180 animate-bounce" : "animate-bounce"
             }`}
             fill="none" 
             strokeLinecap="round" 
@@ -94,13 +98,13 @@ export const UI = ({ scrollY = 0 }) => {
         style={{ opacity: textOpacity }}
       >
         <div className="relative">
-          <div className="bg-white/0 animate-horizontal-scroll flex items-center gap-8 w-max px-8">
-            <h2 className="shrink-0 text-white text-13xl font-bold">
+          <div className="bg-white/0 animate-horizontal-scroll flex items-center gap-4 sm:gap-6 md:gap-8 w-max px-4 sm:px-6 md:px-8">
+            <h2 className="shrink-0 text-white text-6xl sm:text-8xl md:text-10xl lg:text-13xl font-bold">
               Enjoy reading books
             </h2>
           </div>
-          <div className="absolute top-0 left-0 bg-white/0 animate-horizontal-scroll-2 flex items-center gap-8 px-8 w-max">
-            <h2 className="shrink-0 text-white text-13xl font-bold">
+          <div className="absolute top-0 left-0 bg-white/0 animate-horizontal-scroll-2 flex items-center gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-8 w-max">
+            <h2 className="shrink-0 text-white text-6xl sm:text-8xl md:text-10xl lg:text-13xl font-bold">
               Enjoy reading books
             </h2>
           </div>
